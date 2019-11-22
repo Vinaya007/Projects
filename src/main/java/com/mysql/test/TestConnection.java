@@ -14,7 +14,7 @@ public class TestConnection {
 
     try {
       Class.forName(MYSQL_DRIVER);
-      System.out.println("Class Loaded....");
+      System.out.println("Class Loaded.... : from Test Connection.");
       con = DriverManager.getConnection(MYSQL_URL,"root","root");
       System.out.println("Connected to the database....");
       st = con.createStatement();
