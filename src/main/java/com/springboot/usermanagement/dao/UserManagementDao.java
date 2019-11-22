@@ -17,6 +17,7 @@ import com.springboot.usermanagement.beans.User;
 import com.springboot.usermanagement.beans.UserGroup;
 import com.springboot.usermanagement.controller.UserManagementController;
 import com.springboot.usermanagement.interfaces.UserManagementDataSource;
+import com.springboot.usermanagement.utility.CommonConstants;
 
 /**
  * @author vinaya.m
@@ -30,11 +31,17 @@ public class UserManagementDao  implements UserManagementDataSource {
 	@Autowired
 	private EntityManager manager;
 	
+	/**
+	 * No Arg Constructor
+	 */
 	public UserManagementDao() {
 		// TODO Auto-generated constructor stub
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see com.springboot.usermanagement.interfaces.UserManagementDataSource#insertUser(com.springboot.usermanagement.beans.User)
+	 */
 	public Long insertUser(User user){
 		Long integer=null;
 		Session session=manager.unwrap(Session.class);
@@ -43,6 +50,9 @@ public class UserManagementDao  implements UserManagementDataSource {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.springboot.usermanagement.interfaces.UserManagementDataSource#insertGroup(com.springboot.usermanagement.beans.UserGroup)
+	 */
 	@Override
 	public Long insertGroup(UserGroup newGroup) {
 		// TODO Auto-generated method stub
@@ -54,23 +64,29 @@ public class UserManagementDao  implements UserManagementDataSource {
 	
 
 
+	/* (non-Javadoc)
+	 * @see com.springboot.usermanagement.interfaces.UserManagementDataSource#fetchUser(java.lang.String)
+	 */
 	@Override
 	public User fetchUser(String userName) {
 		// TODO Auto-generated method stub
 			Session session=manager.unwrap(Session.class);
-			Query theQuery=session.createQuery("select U from User U  where U.userName =: userName");
+			Query theQuery=session.createQuery(CommonConstants.FETCH_USER_QUERY);
 			theQuery.setParameter("userName", userName);
 			logger.info("The username is ...."+userName);
 			User user=(User)theQuery.getSingleResult();	
 			logger.info("The Name is ..."+user.getEmailId());
 			return user;
-		}	
+	}	
 	
+	/* (non-Javadoc)
+	 * @see com.springboot.usermanagement.interfaces.UserManagementDataSource#fetchGroup(java.lang.String)
+	 */
 	@Override
 	public UserGroup fetchGroup(String groupName) {
 		// TODO Auto-generated method stub
 			Session session=manager.unwrap(Session.class);
-			Query theQuery=session.createQuery("select U from UserGroup U  where U.groupName =: groupName");
+			Query theQuery=session.createQuery(CommonConstants.FETCH_GROUP_QUERY);
 			theQuery.setParameter("groupName", groupName);
 			logger.info("The groupName is ...."+groupName);
 			UserGroup userGroup=(UserGroup)theQuery.getSingleResult();	
@@ -80,11 +96,19 @@ public class UserManagementDao  implements UserManagementDataSource {
 		}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.springboot.usermanagement.interfaces.UserManagementDataSource#updateUser(com.springboot.usermanagement.beans.UserGroup)
+	 */
 	@Override
-	public void updateUser(UserGroup user) {
+	public int updateUser(UserGroup group) {
 		// TODO Auto-generated method stub
-			Session session=manager.unwrap(Session.class);
-			session.update(user);
+			Session session=manager.unwrap(Session.class);			
+			Query theQuery=session.createSQLQuery(CommonConstants.UPDATE_USER_QUERY);
+			logger.info("Group Name........"+group.getGroupName());
+			theQuery.setParameter("groupName", group.getGroupName());
+			theQuery.setParameter("userName", group.getUsers().get(0).getUserName());
+			int rows=theQuery.executeUpdate();
+			return rows;		
 		}
 }	
 

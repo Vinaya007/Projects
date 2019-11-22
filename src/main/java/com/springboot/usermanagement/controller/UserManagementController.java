@@ -24,7 +24,6 @@ import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/api")
-@Api(value="Flag Controller API")
 public class UserManagementController {
 	private static final Logger logger = LoggerFactory.getLogger(UserManagementController.class);
 	
@@ -80,7 +79,7 @@ public class UserManagementController {
 	 * @return response
 	 * @throws ResourceNotFoundException
 	 */
-	@PutMapping("api/updateUser")
+	@PutMapping("updateUser")
 	public Response updateUser(@RequestBody UserGroup group) throws ResourceNotFoundException{	
 		logger.info("The Field is #############....");
 		return service.updateUser(group);

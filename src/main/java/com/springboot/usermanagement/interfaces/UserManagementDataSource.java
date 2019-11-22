@@ -38,8 +38,9 @@ public interface UserManagementDataSource {
 
 	/**
 	 * @param user
+	 * @return 
 	 */
-	public void updateUser(UserGroup userGroup);
+	public int updateUser(UserGroup userGroup);
 
 	
 }

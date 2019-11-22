@@ -1,6 +1,5 @@
 package com.springboot.usermanagement.beans;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,11 +24,9 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="user_id")
-	private long userId;
-	
-	@Column(name="name")
-	private String userName;
-	
+	private long userId;	
+	@Column(name="user_name")
+	private String userName;	
 	@Column(name="mobile_number")
 	private String mobileNumber;
 	@Column(name="email_id")

@@ -31,8 +31,8 @@ public class UserGroup {
 	@Column(name="group_name")
 	private String groupName;
 	
-	@OneToMany(cascade={CascadeType.ALL})
-	@JoinColumn(name="group_id")
+	@OneToMany(cascade={CascadeType.ALL},mappedBy="group")
+//	@JoinColumn(name="group_id")
 	private List<User> users=new ArrayList<User>();	
 	
 	

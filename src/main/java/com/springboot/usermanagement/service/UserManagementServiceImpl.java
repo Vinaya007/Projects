@@ -123,9 +123,16 @@ public class UserManagementServiceImpl implements UserManagementService {
 	public Response updateUser(UserGroup group) throws ResourceNotFoundException {
 		// TODO Auto-generated method stub
 			Response response=new Response();
-			dataSource.updateUser(group);
-			logger.info("Fetched User from DB..........");
-			return response;
+			int rows=dataSource.updateUser(group);
+			if(rows>0){
+				response=new Response(System.currentTimeMillis(),
+						CommonConstants.SUCCESS_CODE,
+						CommonConstants.SUCCESS);
+				return response;				
+			}else{
+				throw new ResourceNotFoundException(CommonConstants.USER_DATA_NOT_FOUND_CODE, CommonConstants.USER_DATA_NOT_FOUND);
+				
+			}
 		}
 
 	}
