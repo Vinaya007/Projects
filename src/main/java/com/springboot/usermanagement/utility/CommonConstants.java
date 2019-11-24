@@ -18,7 +18,7 @@ public  class CommonConstants {
 	public static final String USER_DATA_NOT_FOUND = "USER_DATA_NOT_FOUND";	
 	public static final String FETCH_USER_QUERY="select U from User U  where U.userName =: userName";
 	public static final String FETCH_GROUP_QUERY="select U from UserGroup U  where U.groupName =: groupName";
-	public static final String UPDATE_USER_QUERY="update txnlog.users set group_id=(select group_id "
-												  + "from txnlog.user_groups where group_name=:groupName)"
+	public static final String UPDATE_USER_QUERY="update users set group_id=(select group_id "
+												  + "from user_groups where group_name=:groupName)"
 												  + " where user_name=:userName";
 }
